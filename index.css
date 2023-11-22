@@ -1,0 +1,20 @@
+/* body *{
+margin: 10px;
+padding: 10px;
+border: 1px solid red;
+} */
+
+.products{
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-gap: 10px;
+}
+
+span{
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
