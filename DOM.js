@@ -120,3 +120,52 @@ let h1= document.querySelector("header h1")
 container.insertBefore(newDiv,h1)
 
 newDiv.style.fontSize="20px"
+
+
+// *EVENT LISTENERS
+function runEvent(e){
+    e.preventDefault()
+    console.log(`Event Type : ${e.type}`)
+    // Cool thing
+    box.style.backgroundColor="rgb("+e.offsetX+","+e.offsetX+",53)"
+    // console.log(e.target.value)
+}
+let button= document.getElementById("button")
+
+// *Click Events
+
+// button.addEventListener("click",runEvent)
+// button.addEventListener("dblclick",runEvent)
+
+// *Mouse Events
+
+button.addEventListener("mousedown",runEvent)
+button.addEventListener("mouseup",runEvent)
+
+let box = document.getElementById("box")
+// box.addEventListener("mouseenter",runEvent)
+// box.addEventListener("mouseleave",runEvent)
+
+// For inner elements
+// box.addEventListener("mouseover",runEvent)
+// box.addEventListener("mouseout",runEvent)
+box.addEventListener("mousemove",runEvent)
+
+
+// *Keyboard Events
+
+// input.addEventListener("keydown",runEvent)
+// input.addEventListener("keyup",runEvent)
+// input.addEventListener("focus",runEvent)
+// input.addEventListener("blur",runEvent)
+input.addEventListener("input",runEvent)
+
+let select= document.querySelector("select")
+select.addEventListener("change",runEvent)
+select.addEventListener("input",runEvent)
+
+// *FORM EVENTS
+let form= document.querySelector("form")
+form.addEventListener("submit",runEvent)
+
+
