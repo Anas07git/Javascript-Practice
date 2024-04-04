@@ -32,10 +32,9 @@ console.log(user)
 console.log(user??="a")
 console.log(user)
 
-// Optional Chaining (?.) - Its not an operator but a special syntax constuct
+// Optional Chaining (?.) - Its not an operator but a special syntax construct
 
-// It stops the evaluation if value before(?.) is null/undefined
-// returns undefined
+// It stops the evaluation if value before(?.) is null/undefined & returns undefined
 
 // It is the safe way to access nested object properties even if an intermediate 
 // property doesnt exist 

@@ -53,15 +53,19 @@ cc(parseInt("12.3"))  // 12
 cc(parseFloat("12.3.4"))  // 12.3
 cc(parseInt("a123"))  // NaN
 cc(parseInt('ff',16)); //255
-let parser=[2,1,3].map(parseInt)
+let parser=["2","1","11"].map(parseInt)
 cc(parser)
-// Explanation
-// For 1st element 2 parseInt(2,0) is invoked which returns 2
-// bcoz 0 means base 10
+// Explanation:
+// map(element,index,array)-> parseInt(element/string,base)
 
-// For 2nd element 1 parseInt(1,1) returns nan bcoz base-1 is not valid
+// If the base provide is fasly then by default it is converted to Base 10 
+// So "2" will be converted to 2
 
-// For 3rd element 3 parseInt(3,2) returns NaN bcoz 3 is not a valid binary 
+// "1" will be converted into NaN as Base/Radix 1 is has no 1
+// "11" will be converted into 3( as 11 in base2 is 3)
+
+// To work as expected :['1', '7', '11'].map(numStr => parseInt(numStr))
+
 
 
 // Random from min to max [min,max) - floating num

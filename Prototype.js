@@ -1,6 +1,6 @@
 const cc= console.log
 //*PROTOTYPE [[Prototype]]
-// Prototype is a special property which refers to other object or null
+// Prototype is a special hidden property which refers to other object or null
 
 // __proto__ is historical getter/setter for [[Prototype]]
 // Modern js suggests the use of Object.getPrototypeOf/Object.setPrototypeOf instead of _proto_
@@ -166,10 +166,10 @@ cc([1,2,3].__proto__.__proto__.__proto__===null) // true
 if (!String.prototype.repeat) {
 
   String.prototype.repeat = function(n) {
-    return new Array(n + 1).join(this);
+    return new Array(n+1).join(this);
   };
 }
-cc( "La".repeat(3) ); // LaLaLa
+cc( "La".repeat(5) ); // LaLaLa
 
 
 // *GET/SET PROTOTYPE WITHOUT __PROTO__
@@ -183,7 +183,7 @@ cc( "La".repeat(3) ); // LaLaLa
 let x={
   something:true
 }
-let y= Object.create(x)
+let y= Object.create(x)  //  Similar to let y={__proto__:x} & Object.setPrototypeOf(y,x)
 
 cc(y.something) // true
 
@@ -201,8 +201,8 @@ cc(clone)
 
 let obj1 = {};
 
-let key = prompt("What's the key?", "__proto__");
-obj1[key] = "some value";
+// let key = prompt("What's the key?", "__proto__");
+// obj1[key] = "some value";
 
 // alert(obj1[key]); // [object Object], not "some value"!
 // The __proto__ property is special: it must be either an object or null.
@@ -211,8 +211,8 @@ obj1[key] = "some value";
 // To overcome a little trick
 
 obj1=Object.create(null);
- key = prompt("What's the key?", "__proto__");
-obj1[key] = "some value";
+//  key = prompt("What's the key?", "__proto__");
+// obj1[key] = "some value";
 // alert(obj1[key]) // "some value" : Works fine
 
 // These type of objects are called plain objects / dictionary objects
@@ -240,7 +240,58 @@ for(let key in dictionary) {
 }
 
 // your toString in action
-alert(dictionary); // "apple,__proto__"
+// alert(dictionary); // "apple,__proto__"
 
 
 
+function Person(f,l){
+  this.firstName = f;
+  this.lastName = l;
+}
+
+const p1= new Person("A","K")
+const p2= new Person("a","k")
+
+// p1.fullName= function(){
+//   return `${this.firstName} ${this.lastName}`
+// }
+
+Person.prototype.fullName = function(){
+  return `${this.firstName} ${this.lastName}`
+}
+
+// cc(p1.fullName())
+// cc(p2.fullName())
+function Hero(f,l){
+  Person.call(this,f,l)
+  this.isHero =true
+}
+Hero.prototype= Object.create(Person.prototype)
+const h1= new Hero("H","1")
+Hero.prototype.constructor = Hero
+
+cc(h1.fullName())
+
+// Class are syntactical sugar over prototypal inheritance
+class PersonClass{
+  constructor(f,l){
+    this.firstName = f;
+    this.lastName = l;
+  }
+  fullName(){
+    return `${this.firstName} ${this.lastName}`
+  }
+}
+const p1Class= new PersonClass("Anas","K")
+
+cc(p1Class.fullName())
+class HeroClass extends PersonClass{
+  constructor(f,l){
+    super(f,l)
+    this.isHero=true
+
+  }
+
+}
+const heroclass= new HeroClass("J","K")
+cc(heroclass.fullName())

@@ -33,7 +33,7 @@ const cc= console.log
 // let ex=new Example2("anna")
 // ex.abc(999) 
 
- // getter & setter - Accessor property
+ // getter & setter - Accessor properties
 
 // class Animal {
 //    constructor(name){
@@ -55,7 +55,41 @@ const cc= console.log
 // a.game="Anas"
 // console.log(a._name)
 
+// Accessor Descriptors - get(),set(value), enumerable & configurable
+let accObj={
+  name:"Anas",
+  surname:"Karatela"
+}
+Object.defineProperty(accObj,"fullName",{
+  get(){
+    return `${this.name} ${this.surname}`
+  },
+  set(value){
+    [this.name,this.surname]=value.split(" ")
+  },
+  enumerable:true,
+})
+// for(let keys in accObj) cc(keys)
+ accObj.fullName = "Anas Karatela"
+ cc(accObj.fullName)
 
+ // Smart Getters/Setters - Wrapper over real property values
+ // properties starting with  "_" are internal and should not be touched from outside the object
+ let smartObj={
+  get name(){
+    return this._name
+  },
+  set name(value){
+    if(value.length<4){
+      throw new Error("Name is too short.")
+    }
+    else{
+      this._name=value
+    }
+  }
+ }
+ smartObj.name="Anas"
+ cc(smartObj.name)
 // Add two complex numbers
 
 // class Complex{
@@ -546,6 +580,7 @@ topSalary(salary)
 // writable – if true, the value can be changed, otherwise it’s read-only.
 // enumerable – if true, then listed in loops, otherwise not listed.
 // configurable – if true, the property can be deleted and these attributes can be modified, otherwise not.
+// By default all the three attributes/flags are true
 
 // Object.getOwnPropertyDescriptor(obj,propertyName) - allows to query the full information about a property.
 
@@ -597,8 +632,9 @@ for(let key in en){
   cc(key)  // name
 }
 
+
 // Non-configurable
-// A non-configurable property can’t be deleted, its attributes can’t be modified.
+// A non-configurable property can’t be deleted, its attributes/flags can’t be modified.
 
 let con={
   name:"c",
@@ -617,10 +653,22 @@ Object.defineProperty(con,"name",{
     enumerable:false
   })      // Error
 
-  // 1 Expection if writable is true it can be changed to false
+  // One Expection if writable is true it can be changed to false
   Object.defineProperty(con,"name",{
     writable:false
   })      // No Error
+
+  // To define multiple properties:
+
+  // Object.defineProperties(user, {
+  //   name: { value: "John", writable: false },
+  //   surname: { value: "Smith", writable: false },
+  //   // ...
+  // });
+
+
+// Flags aware cloning
+// let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
 
 
   // Others
@@ -629,7 +677,7 @@ Object.defineProperty(con,"name",{
 // Forbids adding/removing of properties
 
  // Object.freeze(obj)  configurable:false, writable:false
-//Forbids adding/removing/changing of properties
+//Forbids adding/removing/changing of existing properties
 
   
   

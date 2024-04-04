@@ -25,7 +25,7 @@ let b
 b=10
 
 // Not possible
-let b=10   // Syyntax error: b already declared
+let b=10   // Syntax error: b already declared
 let b=11
 if in same block
 
@@ -45,6 +45,7 @@ c=13   // Type error: Assignment to constant variable
 
 4. Hoisting is done in var with default value of undefined & let and const are also 
 hoisted but they donot have any default value they are in temporal dead zone
+ "Temporal Dead Zone exists until a variable is declared and assigned a value"
 -> function exp and class exp are not hoisted
 
 */
